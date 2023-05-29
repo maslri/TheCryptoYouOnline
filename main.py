@@ -12,18 +12,29 @@ def insert_baby(dic_baby):
     cursor = connection_db.cursor()
     param = (
         dic_baby['name'], dic_baby['nft_id'], str(dic_baby['level']), str(dic_baby['total_score']),
+
         dic_baby['dpm_type'],
+
         dic_baby['role_name'], str(dic_baby['rarity']), str(dic_baby['strength']), str(dic_baby['dexterity']),
+
         str(dic_baby['vitality']),
+
         str(dic_baby['mentality']), str(dic_baby['grit']), str(dic_baby['stamina']), dic_baby['main_stat'],
+
         dic_baby['sub_stat'],
+
         str(round(float(dic_baby['sale_price_usd']), 2)), str(round(float(dic_baby['sale_price_normalized']), 2)),
+
         str(round(float(dic_baby['milk_per_day']), 2)),
+
         str(dic_baby['payback_days']), str(round(float(dic_baby['annualized_roi_percentage']), 2))
     )
     print(param)
+
     count = list(cursor.execute("select count(*) from BABY where HASH_ID = ?", dic_baby['nft_id']))
+
     if count[0][0] == 0:
+
         cursor.execute('''
                        insert into BABY(NAME, HASH_ID, LEVEL_NUMBER, TOTAL_SCORE, DAMAGE_TYPE, ROLE, RARITY, STRENGHT, 
                        DEXTERITY, VITALITY, MENTALITY, GRIT, STAMINA, MAIN_STAT, SUB_STAT, PRICE_DOLLAR, PRICE_BABY, 
@@ -33,7 +44,9 @@ def insert_baby(dic_baby):
     else:
         print(
             "-------------------------------------------------  The kid is in the database  -------------------------------------------------")
+    
     connection_db.commit()
+    
     connection_db.close()
 
 
